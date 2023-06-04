@@ -2,15 +2,6 @@ package vue3;
 
 import js.Syntax;
 
-/**
- * 更新属性，跟this.key = value同理
- * @param key 
- * @param value 
- */
-inline function set(key:String, value:Dynamic):Void {
-	Syntax.code("this[{0}] = {1}", key, value);
-}
-
 @:native("Vue")
 extern class Vue {
 	/**

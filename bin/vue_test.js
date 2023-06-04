@@ -62,7 +62,7 @@ class MainPage extends vue3_VueComponent {
 	}
 	_hx_constructor() {
 		this.methodsKeys = ["onClick"];
-		this.template = "<el-button>这是main组件的按钮</el-button>\n<el-button @click=\"onClick\">测试4号按钮</el-button>";
+		this.template = "<el-button>这是main组件的按钮</el-button>\n<el-button @click=\"onClick\">测试4号按钮</el-button>\n<el-menu ref=\"menu\" :default-active=\"activeIndex\" class=\"el-menu-demo\" mode=\"horizontal\" :ellipsis=\"false\"\n    background-color=\"#545c64\" text-color=\"#fff\" active-text-color=\"#ffd04b\" @select=\"onHeadMenuSelect\">\n    <el-menu-item index=\"/\">卓越逻辑</el-menu-item>\n    <el-menu-item index=\"/engine_doc\">引擎文档</el-menu-item>\n    <el-sub-menu index=\"/doc\">\n        <template #title>项目列表</template>\n        <el-menu-item index=\"/zygameui\">ZYGameUI引擎</el-menu-item>\n        <el-menu-item index=\"/hxwz\">幻想纹章</el-menu-item>\n        <el-menu-item index=\"/haxe\">Haxe手册</el-menu-item>\n        <el-menu-item index=\"/open_source\">开源项目</el-menu-item>\n        <el-menu-item index=\"/projects\">项目经验</el-menu-item>\n    </el-sub-menu>\n    <div class=\"flex-grow\" />\n    <el-row align=\"middle\" style=\"padding-right: 20px;\">\n        <el-text style=\"color: #fff;margin-right: 0px;font-size: small;\">成员：0个</el-text>\n        <el-avatar style=\"margin: 10px;\">用户</el-avatar>\n        <el-button type=\"warning\" @click=\"this.$emit('onOpenLogin')\">登录</el-button>\n        <el-button type=\"success\">注册</el-button>\n    </el-row>\n</el-menu>";
 		super._hx_constructor();
 		console.log("test/MainPage.hx:7:","构造测试");
 	}
@@ -145,9 +145,6 @@ class haxe_iterators_ArrayIterator {
 	}
 }
 haxe_iterators_ArrayIterator.__name__ = "haxe.iterators.ArrayIterator";
-function vue3_Vue_set(key,value) {
-	this[key] = value;
-}
 var $_;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $global.$haxeUID++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = m.bind(o); o.hx__closures__[m.__id__] = f; } return f; }
 $global.$haxeUID |= 0;
