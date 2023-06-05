@@ -2,6 +2,9 @@ package vue3;
 
 using Reflect;
 
+/**
+ * Vue组件基础实现，实现一个新组件时，可继承`VueComponent`进行实现；
+ */
 @:autoBuild(vue3.macro.VueBuilder.build())
 class VueComponent {
 	/**
