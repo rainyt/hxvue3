@@ -10,3 +10,37 @@ vue.use(ElementPlus);
 vue.mount("#app");
 ```
 > 可参考**test**目录下的实例
+
+## 组件
+使用`VueComponent`来构造组件，`VueComponent`会自动处理所有方法的映射关系、以及会将data()中的定义返回，允许在Haxe中直接访问，在这里，也不需要关心`methods`和`components`的定义，由宏自动处理：
+```haxe
+import vue3.VueComponent;
+/**
+ * 一个App组件
+ */
+@:template("test/html/app.html")
+class App extends VueComponent {
+	public function new() {
+		super();
+		this.component(MainPage);
+	}
+
+	/**
+	 * 通过宏，该data，会变成变量返回
+	 */
+	override function data() {
+		return {
+			btn_label: "测试文案"
+		};
+	}
+
+	public function onClick():Void {
+		trace("这是点击测试");
+		this.btn_label = "点击成功";
+	}
+}
+```
+
+## 模板
+通过元数据`@:template`来定义模板路径，指定到外部的html文件，它不需要完整的html格式，只需要vue能解析的html格式即可。
+> 可以使用`@:t`简写来代替`@:template`
