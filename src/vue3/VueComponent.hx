@@ -39,6 +39,10 @@ class VueComponent {
 		return {};
 	}
 
+	/**
+	 * 注册组件，一般`VueBuilder`宏会自动将组件注册
+	 * @param type 
+	 */
 	public function component(type:Class<Dynamic>):Void {
 		var name = Type.getClassName(type);
 		var list = name.split(".");

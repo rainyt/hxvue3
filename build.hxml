@@ -1,5 +1,5 @@
 --class-path test
---class-path src
+--library hxvue3
 --main VueTest
 --js bin/vue_test.js
 --define js-es=6
