@@ -12,22 +12,36 @@ import haxe.macro.Expr.Field;
  * Vue构造器
  */
 class VueBuilder {
+	/**
+	 * CSS列表
+	 */
+	@:persistent public static var css:Array<String> = [];
+
 	macro public static function build():Array<Field> {
-		trace("Vue building");
 		var list = Context.getBuildFields();
 		var classType = Context.getLocalClass();
 		var classFunc = classType.get().meta.get();
 		var templateContext:String = null;
+		var styleContext:String = null;
 		for (item in classFunc) {
-			if (item.name == ":template" || item.name == ":t") {
-				// Vue模板数据
-				var templateFile = ExprTools.getValue(item.params[0]);
-				templateContext = File.getContent(templateFile);
-				trace("模版内容：", templateContext);
+			switch (item.name) {
+				case ":template", ":t":
+					// Vue模板数据
+					var templateFile = ExprTools.getValue(item.params[0]);
+					templateContext = File.getContent(templateFile);
+				case ":style", ":s":
+					// Css样式绑定
+					var styleFile = ExprTools.getValue(item.params[0]);
+					styleContext = File.getContent(styleFile);
+					styleContext = StringTools.replace(styleContext, "\n", "");
+					styleContext = StringTools.replace(styleContext, "\r", "");
+					trace("styleContext=", styleContext);
+					css.push(styleContext);
 			}
 		}
+		// 模板存在的时候下，需要定义模板参数
 		if (templateContext != null) {
-			// 模板存在的时候下，需要定义模板参数
+			templateContext = '<div>${templateContext}</div>';
 			var templateField:Field = {
 				name: "template",
 				access: [APublic],
@@ -35,6 +49,16 @@ class VueBuilder {
 				pos: Context.currentPos()
 			};
 			list.push(templateField);
+		}
+		// css存在的时候
+		if (styleContext != null) {
+			var styleField:Field = {
+				name: "css",
+				access: [APublic],
+				kind: FVar(macro :String, macro $v{styleContext}),
+				pos: Context.currentPos()
+			};
+			list.push(styleField);
 		}
 		// 将所有公开的方法，添加到methods中
 		var methods:Array<String> = [];
@@ -50,7 +74,6 @@ class VueBuilder {
 								var ret = exprs[exprs.length - 1];
 								switch ret.expr {
 									case EReturn(e):
-										trace(e.expr);
 										switch e.expr {
 											case EObjectDecl(fields):
 												// 这里必须是一个Object

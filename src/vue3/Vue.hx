@@ -1,7 +1,5 @@
 package vue3;
 
-import js.Syntax;
-
 @:native("Vue")
 extern class Vue {
 	/**
