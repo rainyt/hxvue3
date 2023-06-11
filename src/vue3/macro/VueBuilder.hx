@@ -16,7 +16,7 @@ class VueBuilder {
 	/**
 	 * CSS列表
 	 */
-	@:persistent public static var css:Array<String> = [];
+	@:persistent public static var css:Map<String, String> = [];
 
 	macro public static function build():Array<Field> {
 		var list = Context.getBuildFields();
@@ -36,7 +36,7 @@ class VueBuilder {
 					styleContext = File.getContent(styleFile);
 					styleContext = StringTools.replace(styleContext, "\n", "");
 					styleContext = StringTools.replace(styleContext, "\r", "");
-					css.push(styleContext);
+					css.set(styleFile, styleContext);
 			}
 		}
 		// 模板存在的时候下，需要定义模板参数
@@ -51,15 +51,15 @@ class VueBuilder {
 			list.push(templateField);
 		}
 		// css存在的时候
-		if (styleContext != null) {
-			var styleField:Field = {
-				name: "css",
-				access: [APublic],
-				kind: FVar(macro :String, macro $v{styleContext}),
-				pos: Context.currentPos()
-			};
-			list.push(styleField);
-		}
+		// if (styleContext != null) {
+		// 	var styleField:Field = {
+		// 		name: "css",
+		// 		access: [APublic],
+		// 		kind: FVar(macro :String, macro $v{styleContext}),
+		// 		pos: Context.currentPos()
+		// 	};
+		// 	list.push(styleField);
+		// }
 		// 将所有公开的方法，添加到methods中
 		var methods:Array<String> = [];
 		for (func in list) {

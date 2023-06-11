@@ -10,7 +10,12 @@ class Compiler {
 	macro public static function use():Void {
 		Context.onAfterGenerate(() -> {
 			FileSystem.createDirectory("./bin/lib");
-			File.saveContent("./bin/lib/main.css", VueBuilder.css.join("\n"));
+			// 生成CSS文件
+			var csslist:Array<String> = [];
+			for (v in VueBuilder.css) {
+				csslist.push(v);
+			}
+			File.saveContent("./bin/lib/main.css", csslist.join("\n"));
 			var p:Process = new Process("haxelib", ["libpath", "hxvue3"]);
 			var path:String = p.stdout.readAll().toString();
 			path = StringTools.replace(path, "\n", "");

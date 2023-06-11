@@ -23,4 +23,8 @@ class App extends VueComponent {
 		trace("这是点击测试");
 		this.btn_label = "点击成功";
 	}
+
+	public function onMenuSelect(index:String):Void {
+		trace(index);
+	}
 }

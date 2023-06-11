@@ -1,5 +1,7 @@
 package vue3;
 
+import js.Syntax;
+
 using Reflect;
 
 /**
@@ -28,6 +30,7 @@ class VueComponent {
 		// 初始化方法
 		if (this.field("methodsKeys") != null) {
 			var array:Array<String> = this.getProperty("methodsKeys");
+			array.push("emit");
 			for (key in array) {
 				this.methods.setField(key, this.getProperty(key));
 			}
@@ -45,10 +48,21 @@ class VueComponent {
 	/**
 	 * 注册组件，一般`VueBuilder`宏会自动将组件注册
 	 * @param type 
+	 * 
 	 */
 	public function component(type:Class<Dynamic>):Void {
 		var name = Type.getClassName(type);
 		var list = name.split(".");
 		this.components.setProperty(list[list.length - 1], Type.createInstance(type, []));
+	}
+
+	/**
+	 * 发送事件
+	 * @param ...args 
+	 */
+	public function emit(...args):Void {
+		var list = args.toArray();
+		var call = Syntax.code("this.$emit");
+		Reflect.callMethod(this, call, list);
 	}
 }
