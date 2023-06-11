@@ -6,3 +6,7 @@
     --el-header-padding: 0 0px;
     --el-header-height: 0px;
 }
+
+body {
+    margin: 0px;
+}

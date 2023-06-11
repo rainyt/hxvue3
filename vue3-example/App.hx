@@ -3,7 +3,7 @@ import vue3.VueComponent;
 /**
  * 一个App组件
  */
-@:template("test/html/app.html")
+@:template("html/app.html")
 class App extends VueComponent {
 	public function new() {
 		super();

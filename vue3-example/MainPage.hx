@@ -1,7 +1,7 @@
 import vue3.VueComponent;
 
-@:t("test/html/main.html")
-@:style("test/css/main.css")
+@:t("html/main.html")
+@:style("css/main.css")
 class MainPage extends VueComponent {
 	public function new() {
 		super();
