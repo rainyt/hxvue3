@@ -31,6 +31,7 @@ class VueComponent {
 		if (this.field("methodsKeys") != null) {
 			var array:Array<String> = this.getProperty("methodsKeys");
 			array.push("emit");
+			array.push("get");
 			for (key in array) {
 				this.methods.setField(key, this.getProperty(key));
 			}
@@ -64,5 +65,15 @@ class VueComponent {
 		var list = args.toArray();
 		var call = Syntax.code("this.$emit");
 		Reflect.callMethod(this, call, list);
+	}
+
+	/**
+	 * 获得对象
+	 * @param id 
+	 * @param t 
+	 * @return T
+	 */
+	public function get<T>(id:String, t:Class<T>):T {
+		return cast Syntax.code("this.$refs[{0}]", id);
 	}
 }

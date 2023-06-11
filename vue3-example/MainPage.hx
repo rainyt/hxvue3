@@ -9,12 +9,18 @@ class MainPage extends VueComponent {
 		trace("构造测试");
 	}
 
+	override function data():Dynamic {
+		return {
+			activeIndex: "/"
+		}
+	}
+
 	public function onClick():Void {
 		trace("点击到了");
 	}
 
 	public function onHeadMenuSelect(key:String, paths:Array<String>, routeResult:RouteResult):Void {
-		trace("选择了对象", key, paths, routeResult);
+		activeIndex = key;
 		this.emit("onMenuSelect", key);
 	}
 }

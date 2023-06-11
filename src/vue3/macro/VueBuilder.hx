@@ -1,5 +1,7 @@
 package vue3.macro;
 
+import htmlparser.HtmlDocument;
+import htmlparser.HtmlParser;
 import haxe.Json;
 import haxe.macro.TypedExprTools;
 import haxe.macro.TypeTools;
@@ -30,6 +32,8 @@ class VueBuilder {
 					// Vue模板数据
 					var templateFile = ExprTools.getValue(item.params[0]);
 					templateContext = File.getContent(templateFile);
+					// 这里需要解析引入关系
+				// trace(html);
 				case ":style", ":s":
 					// Css样式绑定
 					var styleFile = ExprTools.getValue(item.params[0]);
@@ -50,16 +54,6 @@ class VueBuilder {
 			};
 			list.push(templateField);
 		}
-		// css存在的时候
-		// if (styleContext != null) {
-		// 	var styleField:Field = {
-		// 		name: "css",
-		// 		access: [APublic],
-		// 		kind: FVar(macro :String, macro $v{styleContext}),
-		// 		pos: Context.currentPos()
-		// 	};
-		// 	list.push(styleField);
-		// }
 		// 将所有公开的方法，添加到methods中
 		var methods:Array<String> = [];
 		for (func in list) {
@@ -80,7 +74,7 @@ class VueBuilder {
 												for (field in fields) {
 													var methodsField:Field = {
 														name: field.field,
-														access: [APrivate],
+														access: [APublic],
 														kind: FVar(macro :Dynamic),
 														pos: Context.currentPos()
 													};

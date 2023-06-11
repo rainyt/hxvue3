@@ -1,14 +1,19 @@
 {
-    "name": "hxvue3",
-    "url": "https://github.com/rainyt/hxvue3",
-    "license": "MIT",
-    "tags": ["vue3","elementui"],
-    "description": "Vue3 is written in Haxe language with built-in support for ElementPlus components.",
-    "version": "0.0.1",
-    "releasenote": "",
-    "contributors": ["rainy"],
-    "classPath": "src",
-    "dependencies": {
-  
-    }
+  "name": "hxvue3",
+  "url": "https://github.com/rainyt/hxvue3",
+  "license": "MIT",
+  "tags": [
+    "vue3",
+    "elementui"
+  ],
+  "description": "Vue3 is written in Haxe language with built-in support for ElementPlus components.",
+  "version": "0.0.1",
+  "releasenote": "",
+  "contributors": [
+    "rainy"
+  ],
+  "classPath": "src",
+  "dependencies": {
+    "HtmlParser": "3.3.2"
   }
+}

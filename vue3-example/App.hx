@@ -26,5 +26,7 @@ class App extends VueComponent {
 
 	public function onMenuSelect(index:String):Void {
 		trace(index);
+		var main = this.get("headmenu", MainPage);
+		trace("当前状态：", main.activeIndex);
 	}
 }
