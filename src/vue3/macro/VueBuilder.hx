@@ -1,5 +1,6 @@
 package vue3.macro;
 
+import haxe.Json;
 import haxe.macro.TypedExprTools;
 import haxe.macro.TypeTools;
 #if macro
@@ -35,7 +36,6 @@ class VueBuilder {
 					styleContext = File.getContent(styleFile);
 					styleContext = StringTools.replace(styleContext, "\n", "");
 					styleContext = StringTools.replace(styleContext, "\r", "");
-					trace("styleContext=", styleContext);
 					css.push(styleContext);
 			}
 		}
