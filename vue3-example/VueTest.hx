@@ -1,6 +1,7 @@
 package;
 
 import element.plus.ElementPlus;
+import element.plus.ElMessage;
 import vue3.Vue;
 
 class VueTest {

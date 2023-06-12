@@ -1,0 +1,16 @@
+<el-dialog model-value="true" title="账号登录" width="500px" height="100" align-center>
+    <span>TIPS：可使用幻想纹章4或者本网站注册的账号进行登录</span>
+    <div style="margin-bottom: 15px;" />
+    <el-form label-position="top" label-width="100px" :model="formLabelAlign" style="max-width: 460px">
+        <el-form-item label="邮箱账号">
+            <el-input v-model="formLabelAlign.mail" />
+        </el-form-item>
+        <el-form-item label="密码">
+            <el-input v-model="formLabelAlign.password" type="password" />
+        </el-form-item>
+    </el-form>
+    <div>
+        <el-checkbox v-model="lockme" label="记住我" size="large" />
+    </div>
+    <el-button type="primary" @click="onLogin">登录账号</el-button>
+</el-dialog>

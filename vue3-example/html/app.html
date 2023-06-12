@@ -1,3 +1,9 @@
-<MainPage ref="headmenu"  @onMenuSelect="onMenuSelect"/>
-<el-button @click="onClick">{{ btn_label }}</el-button>
-<el-button>测试按钮2号</el-button>
+<MainPage ref="headmenu" @onMenuSelect="onMenuSelect" />
+<el-breadcrumb :separator-icon="ArrowRight" style="margin: 15px;">
+    <el-breadcrumb-item @click="onGoHome" :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item v-if="currentPageName!=null">{{currentPageName}}</el-breadcrumb-item>
+</el-breadcrumb>
+<div id="content" style="width: 100%; margin: 0px; display: flex; justify-content: center;  flex-direction: column;">
+    <el-text style="font-size: 32px;" size="large" tag="b">ZYGameUI引擎：基于OpenFL实现的快速游戏引擎</el-text>
+    <el-text size="large">支持小游戏平台，原生的Android、IOS应用生成</el-text>
+</div>

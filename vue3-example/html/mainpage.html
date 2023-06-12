@@ -1,0 +1,20 @@
+<el-menu ref="menu" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
+    @select="onHeadMenuSelect">
+    <el-menu-item index="">卓越逻辑</el-menu-item>
+    <el-menu-item index="engine_doc">引擎文档</el-menu-item>
+    <el-sub-menu index="doc">
+        <template #title>项目列表</template>
+        <el-menu-item index="hxwz">幻想纹章</el-menu-item>
+        <el-menu-item index="haxe">Haxe手册</el-menu-item>
+        <el-menu-item index="open_source">开源项目</el-menu-item>
+        <el-menu-item index="projects">项目经验</el-menu-item>
+    </el-sub-menu>
+    <div class="flex-grow" />
+    <el-row align="middle" style="padding-right: 20px;">
+        <el-text style="margin-right: 0px;font-size: small;">成员：0个</el-text>
+        <el-avatar style="margin-right: 10px;margin-left: 10px;">用户</el-avatar>
+        <el-button type="primary" @click="onOpenLogin">登录</el-button>
+        <el-button type="success" @click="onOpenUserAdd">注册</el-button>
+    </el-row>
+    <div id="box" />
+</el-menu>
