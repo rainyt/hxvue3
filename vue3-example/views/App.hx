@@ -1,3 +1,7 @@
+package views;
+
+import element.plus.ElementPlus;
+import vue3.Vue;
 import vue3.VueComponent;
 
 /**
@@ -21,13 +25,12 @@ class App extends VueComponent {
 	}
 
 	public function onClick():Void {
-		trace("这是点击测试");
 		this.btn_label = "点击成功";
 	}
 
+	private var _currentApp:Vue;
+
 	public function onMenuSelect(index:String):Void {
-		trace(index);
-		var main = this.get("headmenu", MainPage);
 		currentPageName = switch index {
 			case "engine_doc":
 				"引擎文档";
@@ -42,7 +45,23 @@ class App extends VueComponent {
 			default:
 				null;
 		};
-		trace("当前状态：", main.activeIndex);
+		if (_currentApp != null) {
+			_currentApp.unmount();
+		}
+		switch index {
+			case "":
+				_currentApp = Vue.createApp(new HomePage());
+			default:
+				_currentApp = Vue.createApp(new NotFound());
+		}
+		_currentApp.use(ElementPlus);
+		_currentApp.mount("#content");
+	}
+
+	override function onMounted() {
+		super.onMounted();
+		// 发生了挂载
+		this.onMenuSelect("");
 	}
 
 	/**

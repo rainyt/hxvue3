@@ -1,3 +1,5 @@
+package views;
+
 import element.plus.ElMessage;
 import vue3.VueComponent;
 

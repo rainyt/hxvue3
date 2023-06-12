@@ -32,7 +32,7 @@ class VueBuilder {
 					// Vue模板数据
 					var templateFile = ExprTools.getValue(item.params[0]);
 					templateContext = File.getContent(templateFile);
-					// 这里需要解析引入关系
+				// 这里需要解析引入关系
 				// trace(html);
 				case ":style", ":s":
 					// Css样式绑定
@@ -45,7 +45,6 @@ class VueBuilder {
 		}
 		// 模板存在的时候下，需要定义模板参数
 		if (templateContext != null) {
-			templateContext = '<div>${templateContext}</div>';
 			var templateField:Field = {
 				name: "template",
 				access: [APublic],

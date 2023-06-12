@@ -32,10 +32,12 @@ class VueComponent {
 			var array:Array<String> = this.getProperty("methodsKeys");
 			array.push("emit");
 			array.push("get");
+			array.push("onMounted");
 			for (key in array) {
 				this.methods.setField(key, this.getProperty(key));
 			}
 		}
+		untyped this.mounted = this.methods.onMounted;
 	}
 
 	/**
@@ -76,4 +78,23 @@ class VueComponent {
 	public function get<T>(id:String, t:Class<T>):T {
 		return cast Syntax.code("this.$refs[{0}]", id);
 	}
+
+	/**
+	 * 实例挂载到 DOM 上后被调用，此时可以操作 DOM 元素。
+	 */
+	public function onMounted():Void {}
 }
+
+// 1. 创建阶段
+// beforeCreate()：在实例初始化之后、响应式数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+// created()：在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前尚不可用。
+// beforeMount()：在挂载开始之前被调用。相关的 render 函数首次被调用。
+// mounted()：实例挂载到 DOM 上后被调用，此时可以操作 DOM 元素。
+// 2. 更新阶段
+// beforeUpdate()：在数据更新之前被调用，发生在虚拟 DOM 重新渲染和打补丁之前。可以在该钩子函数中进一步地更改数据，但注意不要触发更新无限循环。
+// updated()：在由于数据更改导致的虚拟 DOM 重新渲染和打补丁之后调用。当该钩子函数被调用时，组件 DOM 已经更新完毕。
+// 3. 卸载阶段
+// beforeUnmount()：在实例销毁之前调用。在这一步，实例仍然完全可用。
+// unmounted()：在实例销毁之后调用。此时，所有的指令已被解绑，所有的事件监听器已被移除，所有子实例也都被销毁。
+// 4. 错误处理
+// errorCaptured()：当捕获一个来自子孙组件的异常时被调用。此钩子函数可以返回 false 以阻止该异常继续向上传播。
