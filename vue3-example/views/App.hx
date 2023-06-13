@@ -70,5 +70,6 @@ class App extends VueComponent {
 	public function onGoHome():Void {
 		var main = this.get("headmenu", MainPage);
 		main.activeIndex = "";
+		this.onMenuSelect("");
 	}
 }
