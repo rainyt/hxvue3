@@ -9,8 +9,9 @@ class HomePage extends VueComponent {
 			timelines: [
 				{
 					time: "2023",
+					type: "primary",
 					title: "旅程继续",
-					content: "继续完善ZYGameUI跨平台2D游戏引擎",
+					content: "ZYGameUI提供了稳健的跨平台开发流程，简化各个渠道的生成流程。",
 					link: [
 						{
 							name: "Github开源库",
