@@ -44,3 +44,7 @@ class App extends VueComponent {
 ## 模板
 通过元数据`@:template`来定义模板路径，指定到外部的html文件，它不需要完整的html格式，只需要vue能解析的html格式即可。
 > 可以使用`@:t`简写来代替`@:template`
+
+## 样式
+通过元数据`@:style`来定义CSS。
+> 可以使用`@:s`简写来代替`@:style`
