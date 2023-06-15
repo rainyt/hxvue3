@@ -24,6 +24,11 @@ class VueComponent {
 	 */
 	public var components:Dynamic = {};
 
+	/**
+	 * 组件参数
+	 */
+	public var props:Dynamic = null;
+
 	public function new() {
 		// 绑定数据源
 		untyped this.data = data;
@@ -32,12 +37,16 @@ class VueComponent {
 			var array:Array<String> = this.getProperty("methodsKeys");
 			array.push("emit");
 			array.push("get");
+			array.push("onCreated");
 			array.push("onMounted");
+			array.push("onBeforeCreate");
 			for (key in array) {
 				this.methods.setField(key, this.getProperty(key));
 			}
 		}
 		untyped this.mounted = this.methods.onMounted;
+		untyped this.created = this.methods.onCreated;
+		untyped this.beforeCreate = this.methods.onBeforeCreate;
 	}
 
 	/**
@@ -83,6 +92,16 @@ class VueComponent {
 	 * 实例挂载到 DOM 上后被调用，此时可以操作 DOM 元素。
 	 */
 	public function onMounted():Void {}
+
+	/**
+	 * 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前尚不可用。
+	 */
+	public function onCreated():Void {}
+
+	/**
+	 * 在实例初始化之后、响应式数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+	 */
+	public function onBeforeCreate():Void {}
 }
 
 // 1. 创建阶段

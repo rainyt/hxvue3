@@ -7,4 +7,10 @@ extern class ElMessage {
 	 * @param msg 
 	 */
 	public static function error(msg:String):Void;
+
+	/**
+	 * 发送成功消息
+	 * @param msg 
+	 */
+	public static function success(msg:String):Void;
 }
