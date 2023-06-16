@@ -1,3 +1,5 @@
 --class-path test
 --library hxvue3
 --define js-es=6
+--js bin/main.js
+--no-output

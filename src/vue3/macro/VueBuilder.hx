@@ -1,5 +1,6 @@
 package vue3.macro;
 
+import haxe.macro.Expr.TypePath;
 import htmlparser.HtmlDocument;
 import htmlparser.HtmlParser;
 import haxe.Json;
@@ -100,6 +101,36 @@ class VueBuilder {
 			pos: Context.currentPos()
 		};
 		list.push(methodsField);
+
+		// 新增一个静态的create方法，这个方法会自动返回Vue对象
+		var carray = Context.getLocalClass().toString().split(".");
+		var c:TypePath = {
+			pack: carray.splice(0, carray.length - 1),
+			name: carray[carray.length - 1]
+		}
+		var createField:Field = {
+			name: "createApp",
+			access: [APublic, AStatic],
+			kind: FFun({
+				args: [],
+				expr: macro {
+					var selfApp = vue3.Vue.createApp(new $c());
+					app = selfApp;
+					return selfApp;
+				},
+				ret: macro :vue3.Vue
+			}),
+			pos: Context.currentPos()
+		};
+		list.push(createField);
+		// 并可以通过单例app访问
+		var appField:Field = {
+			name: "app",
+			access: [APublic, AStatic],
+			kind: FVar(macro :vue3.Vue),
+			pos: Context.currentPos()
+		};
+		list.push(appField);
 
 		// 需要有一个静态的来访问app
 		// var appField:Field = {
