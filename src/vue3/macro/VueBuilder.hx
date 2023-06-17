@@ -132,31 +132,22 @@ class VueBuilder {
 		};
 		list.push(appField);
 
-		// 需要有一个静态的来访问app
-		// var appField:Field = {
-		// 	name: "app",
-		// 	access: [APublic],
-		// 	kind: FVar(macro :vue3.Vue),
-		// 	pos: Context.currentPos()
-		// };
-		// list.push(appField);
-		// 需要一个构造方法进行创建实例
-		// var createFunc = function() {}
-		// var createField:Field = {
-		// 	name: "create",
-		// 	access: [APublic],
-		// 	kind: FFun({
-		// 		args: [
-		// 			{
-		// 				name: "moundId",
-		// 				type: macro :String
-		// 			}
-		// 		],
-		// 		expr: macro {}
-		// 	}),
-		// 	pos: Context.currentPos()
-		// }
-		// list.push(createField);
+		// 允许自身带一个unmount的接口，来释放自已
+		var unmountField:Field = {
+			name: "unmount",
+			access: [APublic],
+			kind: FFun({
+				args: [],
+				expr: macro {
+					if (app != null) {
+						app.unmount();
+						app = null;
+					}
+				}
+			}),
+			pos: Context.currentPos()
+		};
+		list.push(unmountField);
 		return list;
 	}
 }

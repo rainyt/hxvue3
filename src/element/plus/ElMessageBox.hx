@@ -5,6 +5,8 @@ import js.lib.Promise;
 @:native("ElementPlus.ElMessageBox")
 extern class ElMessageBox {
 	overload public static function confirm(content:String, ?title:String, ?option:ElMessageBoxOption):Promise<Dynamic>;
+
+	public static function alert(content:String, ?title:String, ?option:ElMessageBoxOption):Promise<Dynamic>;
 }
 
 typedef ElMessageBoxOption = {

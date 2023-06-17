@@ -35,6 +35,7 @@ class VueComponent {
 		// 初始化方法
 		if (this.field("methodsKeys") != null) {
 			var array:Array<String> = this.getProperty("methodsKeys");
+			array.push("unmount");
 			array.push("emit");
 			array.push("get");
 			array.push("onCreated");
@@ -47,6 +48,12 @@ class VueComponent {
 		untyped this.mounted = this.methods.onMounted;
 		untyped this.created = this.methods.onCreated;
 		untyped this.beforeCreate = this.methods.onBeforeCreate;
+		untyped this.beforeMount = this.methods.onBeforeMount;
+		untyped this.beforeCreate = this.methods.onBeforeCreate;
+		untyped this.updated = this.methods.onUpdated;
+		untyped this.beforeUnmount = this.methods.onBeforeUnmount;
+		untyped this.unmounted = this.methods.onUnmounted;
+		untyped this.errorCaptured = this.methods.onErrorCaptured;
 	}
 
 	/**
@@ -102,6 +109,38 @@ class VueComponent {
 	 * 在实例初始化之后、响应式数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
 	 */
 	public function onBeforeCreate():Void {}
+
+	/**
+	 * 在挂载开始之前被调用。相关的 render 函数首次被调用。
+	 */
+	public function onBeforeMount():Void {}
+
+	/**
+	 * 在数据更新之前被调用，发生在虚拟 DOM 重新渲染和打补丁之前。可以在该钩子函数中进一步地更改数据，但注意不要触发更新无限循环。
+	 */
+	public function onBeforeUpdate():Void {}
+
+	/**
+	 * 在由于数据更改导致的虚拟 DOM 重新渲染和打补丁之后调用。当该钩子函数被调用时，组件 DOM 已经更新完毕。
+	 */
+	public function onUpdated():Void {}
+
+	/**
+	 * 在实例销毁之前调用。在这一步，实例仍然完全可用。
+	 */
+	public function onBeforeUnmount():Void {}
+
+	/**
+	 * 在实例销毁之后调用。此时，所有的指令已被解绑，所有的事件监听器已被移除，所有子实例也都被销毁。
+	 */
+	public function onUnmounted():Void {}
+
+	/**
+	 * 当捕获一个来自子孙组件的异常时被调用。此钩子函数可以返回 false 以阻止该异常继续向上传播。
+	 */
+	public function onErrorCaptured(res:Dynamic):Bool {
+		return true;
+	}
 }
 
 // 1. 创建阶段
