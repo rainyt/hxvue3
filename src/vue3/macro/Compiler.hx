@@ -22,7 +22,10 @@ class Compiler {
 			path = StringTools.replace(path, "\r", "");
 			p.close();
 			copyFile(path + "dist", "./bin/lib/dist");
-			File.saveContent("./bin/index.html", File.getContent(path + "index.html"));
+			if (VueBuilder.mainHtmlFile != null) {
+				File.saveContent("./bin/index.html", File.getContent(VueBuilder.mainHtmlFile));
+			} else
+				File.saveContent("./bin/index.html", File.getContent(path + "index.html"));
 		});
 	}
 

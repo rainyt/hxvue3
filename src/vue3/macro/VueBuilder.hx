@@ -21,6 +21,11 @@ class VueBuilder {
 	 */
 	@:persistent public static var css:Map<String, String> = [];
 
+	/**
+	 * 是否指定目标HTML文件，指定后，则不使用haxelib中的html文件
+	 */
+	@:persistent public static var mainHtmlFile:String;
+
 	macro public static function build():Array<Field> {
 		var list = Context.getBuildFields();
 		var classType = Context.getLocalClass();
@@ -29,6 +34,15 @@ class VueBuilder {
 		var styleContext:String = null;
 		for (item in classFunc) {
 			switch (item.name) {
+				case ":includeFile":
+					var copyFile:String = ExprTools.getValue(item.params[0]);
+					var files = copyFile.split("/");
+					Compiler.copyFile(copyFile, "./bin");
+				case ":mainHtml":
+					// 指定HTML入口文件
+					if (mainHtmlFile == null) {
+						mainHtmlFile = ExprTools.getValue(item.params[0]);
+					}
 				case ":template", ":t":
 					// Vue模板数据
 					var templateFile = ExprTools.getValue(item.params[0]);
