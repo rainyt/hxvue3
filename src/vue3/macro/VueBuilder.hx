@@ -1,12 +1,13 @@
 package vue3.macro;
 
+#if macro
+import sys.FileSystem;
 import haxe.macro.Expr.TypePath;
 import htmlparser.HtmlDocument;
 import htmlparser.HtmlParser;
 import haxe.Json;
 import haxe.macro.TypedExprTools;
 import haxe.macro.TypeTools;
-#if macro
 import sys.io.File;
 import haxe.macro.ExprTools;
 import haxe.macro.Context;
@@ -37,7 +38,11 @@ class VueBuilder {
 				case ":includeFile":
 					var copyFile:String = ExprTools.getValue(item.params[0]);
 					var files = copyFile.split("/");
-					Compiler.copyFile(copyFile, "./bin");
+					if (FileSystem.isDirectory(copyFile)) {
+						Compiler.copyFile(copyFile, "./bin/" + copyFile.substr(copyFile.lastIndexOf("/") + 1));
+					} else {
+						Compiler.copyFile(copyFile, "./bin");
+					}
 				case ":mainHtml":
 					// 指定HTML入口文件
 					if (mainHtmlFile == null) {
