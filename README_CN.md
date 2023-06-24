@@ -48,3 +48,6 @@ class App extends VueComponent {
 ## 样式
 通过元数据`@:style`来定义CSS。
 > 可以使用`@:s`简写来代替`@:style`
+
+## 调试
+通过`haxelib run hxvue3 --port 5555`命令指定端口进行调试。

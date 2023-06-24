@@ -1,3 +1,4 @@
 --main Tools
 --library hxp
+--library hxargs
 --neko ../run.n
