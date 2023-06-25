@@ -77,7 +77,7 @@ class VueBuilder {
 			switch func.kind {
 				case FFun(f):
 					// 方法指向
-					if (func.name != "new" && func.access.contains(APublic)) {
+					if (func.name != "new" && func.access.contains(APublic) && !func.access.contains(AStatic)) {
 						methods.push(func.name);
 					} else if (func.name == "data") {
 						switch f.expr.expr {
