@@ -3,8 +3,6 @@ package vue3.macro;
 #if macro
 import sys.FileSystem;
 import haxe.macro.Expr.TypePath;
-import htmlparser.HtmlDocument;
-import htmlparser.HtmlParser;
 import haxe.Json;
 import haxe.macro.TypedExprTools;
 import haxe.macro.TypeTools;
