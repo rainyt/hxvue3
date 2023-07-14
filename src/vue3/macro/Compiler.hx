@@ -1,5 +1,8 @@
 package vue3.macro;
 
+import vue3.macro.utils.Args;
+import vue3.macro.utils.Project;
+import haxe.Template;
 import haxe.io.Path;
 #if macro
 import sys.FileSystem;
@@ -28,11 +31,23 @@ class Compiler {
 			path = StringTools.replace(path, "\r", "");
 			p.close();
 			copyFile(Path.join([path, "dist"]), Path.join([libDir, "dist"]));
+			// 模板写入
 			if (VueBuilder.mainHtmlFile != null) {
-				File.saveContent(Path.join([dir, "index.html"]), File.getContent(VueBuilder.mainHtmlFile));
+				saveTemplateFile(Path.join([dir, "index.html"]), File.getContent(VueBuilder.mainHtmlFile));
 			} else
-				File.saveContent(Path.join([dir, "index.html"]), File.getContent(Path.join([path, "index.html"])));
+				saveTemplateFile(Path.join([dir, "index.html"]), File.getContent(Path.join([path, "index.html"])));
 		});
+	}
+
+	/**
+	 * 储存模板
+	 * @param savePath 
+	 * @param html 
+	 */
+	private static function saveTemplateFile(savePath:String, text:String, ?defines:Project):Void {
+		var t = new Template(text);
+		var content = t.execute(defines ?? new Project());
+		File.saveContent(savePath, content);
 	}
 
 	public static function copyFile(copy:String, to:String):Void {
