@@ -1,5 +1,5 @@
 --class-path test
---class-path templates/test
+--class-path templates/electron
 --library hxvue3
 --define js-es=6
 --js bin/hxvueMain.js
