@@ -51,3 +51,13 @@ class App extends VueComponent {
 
 ## 调试
 通过`haxelib run hxvue3 --port 5555`命令指定端口进行调试。
+
+# Electron目标
+如果需要编译`Electron`目标时，请使用`electron`库，例如在hxml中引入：
+```hxml
+-lib electron
+```
+需要启动`electron`程序时，则需要确保安装了`npm install -g electron`，最后命令运行启动：
+```shell
+electron ./ElectronSetup.js
+```
