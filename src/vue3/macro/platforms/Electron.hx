@@ -1,6 +1,8 @@
 package vue3.macro.platforms;
 
+#if macro
 import sys.io.File;
+#end
 import haxe.io.Path;
 import vue3.macro.utils.FileTools;
 import vue3.macro.utils.Project;
