@@ -4,13 +4,21 @@ import electron.main.BrowserWindow;
 
 class ElectronSetup {
 	static function main() {
-		var window = new BrowserWindow({
-			width: ::if width::::width::::else::800::end::,
-			height: ::if height::::height::::else::480::end::,
-			webPreferences: {
-				nodeIntegration: true
-			}
+		ElectronApp.on("ready", () -> {
+			var window = new BrowserWindow({
+				width: ::if width::::width::::else::1000::end::,
+				height: ::if height::::height::::else::800::end::,
+				webPreferences: {
+					nodeIntegration: true
+				}
+			});
+			window.loadFile("./index.html");
 		});
-		window.loadFile("./index.html");
 	}
+}
+
+@:jsRequire("electron", "app") extern class ElectronApp {
+	public static var commandLine:Dynamic;
+	public static function on(type:Dynamic, callback:Dynamic):Dynamic;
+	public static function quit():Void;
 }

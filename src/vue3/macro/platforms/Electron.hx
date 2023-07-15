@@ -1,5 +1,7 @@
 package vue3.macro.platforms;
 
+import sys.io.File;
+import haxe.io.Path;
 import vue3.macro.utils.FileTools;
 import vue3.macro.utils.Project;
 
@@ -8,6 +10,7 @@ import vue3.macro.utils.Project;
  */
 class Electron extends BasePlatform {
 	override public function build(project:Project) {
+		#if macro
 		// 开始编译处理
 		trace("Electron target compiler...");
 		FileTools.copyTemplatesDir(project.getHxvue3DirPath("templates/electron"), project.getOutputTempDir(), project);
@@ -16,8 +19,10 @@ class Electron extends BasePlatform {
 		Sys.command("haxe build.hxml");
 		Sys.setCwd(project.compilerCwd);
 		// 拷贝makefile
-		FileTools.saveTemplateFile(project.getHxvue3DirPath("templates/electron/makefile"), project.outputDir, project);
+		FileTools.saveTemplateFile(Path.join([project.outputDir, "makefile"]), File.getContent(project.getHxvue3DirPath("templates/electron/makefile")),
+			project);
 		// 清空缓存文件
 		FileTools.removeDir(project.getOutputTempDir());
+		#end
 	}
 }
