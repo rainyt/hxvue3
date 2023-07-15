@@ -5,8 +5,8 @@ import electron.main.BrowserWindow;
 class ElectronSetup {
 	static function main() {
 		var window = new BrowserWindow({
-			width: 800,
-			height: 600,
+			width: ::if width::::width::::else::800::end::,
+			height: ::if height::::height::::else::480::end::,
 			webPreferences: {
 				nodeIntegration: true
 			}

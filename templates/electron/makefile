@@ -1,0 +1,2 @@
+run:
+	electron ./ElectronSetup.js

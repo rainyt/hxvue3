@@ -23,33 +23,18 @@ class Compiler {
 				csslist.push(v);
 			}
 			FileTools.saveContent(project.mainCssFile, csslist.join("\n"));
-			var p:Process = new Process("haxelib", ["libpath", "hxvue3"]);
-			var path:String = p.stdout.readAll().toString();
-			path = StringTools.replace(path, "\n", "");
-			path = StringTools.replace(path, "\r", "");
-			p.close();
-			copyFile(Path.join([path, "dist"]), Path.join([project.outputLibDir, "dist"]));
+			copyFile(Path.join([project.hxvue3Dir, "dist"]), Path.join([project.outputLibDir, "dist"]));
 			// 模板写入
 			if (VueBuilder.mainHtmlFile != null) {
-				saveTemplateFile(Path.join([project.outputDir, "index.html"]), File.getContent(VueBuilder.mainHtmlFile), project);
+				FileTools.saveTemplateFile(Path.join([project.outputDir, "index.html"]), File.getContent(VueBuilder.mainHtmlFile), project);
 			} else
-				saveTemplateFile(Path.join([project.outputDir, "index.html"]), File.getContent(Path.join([path, "index.html"])), project);
+				FileTools.saveTemplateFile(Path.join([project.outputDir, "index.html"]), File.getContent(Path.join([project.hxvue3Dir, "index.html"])),
+					project);
 			// electron目标
 			if (Context.defined("electron")) {
 				new Electron().build(project);
 			}
 		});
-	}
-
-	/**
-	 * 储存模板
-	 * @param savePath 
-	 * @param html 
-	 */
-	private static function saveTemplateFile(savePath:String, text:String, ?defines:Project):Void {
-		var t = new Template(text);
-		var content = t.execute(defines ?? new Project());
-		File.saveContent(savePath, content);
 	}
 
 	public static function copyFile(copy:String, to:String):Void {

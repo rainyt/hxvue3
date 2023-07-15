@@ -1,0 +1,3 @@
+--main ElectronSetup
+--library electron
+--js ../ElectronSetup.js
