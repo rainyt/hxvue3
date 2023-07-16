@@ -7,6 +7,26 @@ import haxe.io.Path;
 
 class FileTools {
 	/**
+	 * 拷贝资源目录到指定位置
+	 * @param dir 
+	 * @param toDir 
+	 */
+	public static function copyAssetsDir(dir:String, toDir:String):Void {
+		#if (macro || sys)
+		var files = FileSystem.readDirectory(dir);
+		for (key in files) {
+			var path = Path.join([dir, key]);
+			var toPath = Path.join([toDir, key]);
+			if (FileSystem.isDirectory(path)) {
+				copyAssetsDir(path, toPath);
+			} else {
+				copyTo(path, toPath);
+			}
+		}
+		#end
+	}
+
+	/**
 	 * 通用的储存文件接口
 	 * @param path 
 	 * @param content 
@@ -18,6 +38,21 @@ class FileTools {
 			FileSystem.createDirectory(file.dir);
 		}
 		File.saveContent(path, content);
+		#end
+	}
+
+	/**
+	 * 通用的储存文件接口
+	 * @param path 
+	 * @param content 
+	 */
+	public static function copyTo(path:String, toFile:String):Void {
+		#if (macro || sys)
+		var file = new Path(toFile);
+		if (!FileSystem.exists(file.dir)) {
+			FileSystem.createDirectory(file.dir);
+		}
+		File.copy(path, toFile);
 		#end
 	}
 
@@ -48,7 +83,7 @@ class FileTools {
 	 */
 	public static function saveTemplateFile(savePath:String, text:String, ?defines:Project):Void {
 		var t = new Template(text);
-		var content = t.execute(defines ?? new Project());
+		var content = t.execute(defines);
 		saveContent(savePath, content);
 	}
 

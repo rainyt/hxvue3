@@ -1,5 +1,6 @@
 package vue3.macro;
 
+import haxe.io.Path;
 #if macro
 import sys.FileSystem;
 import haxe.macro.Expr.TypePath;
@@ -25,6 +26,14 @@ class VueBuilder {
 	 */
 	@:persistent public static var mainHtmlFile:String;
 
+	/**
+	 * 待拷贝的资源
+	 */
+	@:persistent public static var assets:Array<{
+		assets:String,
+		rename:String
+	}> = [];
+
 	macro public static function build():Array<Field> {
 		var list = Context.getBuildFields();
 		var classType = Context.getLocalClass();
@@ -33,6 +42,14 @@ class VueBuilder {
 		var styleContext:String = null;
 		for (item in classFunc) {
 			switch (item.name) {
+				case ":assets", ":a":
+					// 资源拷贝
+					var copyFile:String = ExprTools.getValue(item.params[0]);
+					var copyToFile:String = ExprTools.getValue(item.params[1]);
+					assets.push({
+						assets: copyFile,
+						rename: copyToFile
+					});
 				case ":includeFile":
 					var copyFile:String = ExprTools.getValue(item.params[0]);
 					var files = copyFile.split("/");

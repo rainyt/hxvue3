@@ -12,5 +12,6 @@ extern class ElMessageBox {
 typedef ElMessageBoxOption = {
 	?confirmButtonText:String,
 	?cancelButtonText:String,
-	?type:String
+	?type:String,
+	?distinguishCancelAndClose:Bool
 }

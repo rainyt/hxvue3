@@ -30,6 +30,12 @@ class Compiler {
 			} else
 				FileTools.saveTemplateFile(Path.join([project.outputDir, "index.html"]), File.getContent(Path.join([project.hxvue3Dir, "index.html"])),
 					project);
+			// 拷贝资源
+			for (item in VueBuilder.assets) {
+				var targetAsests = item.assets;
+				var toAssets = Path.join([project.outputDir, item.rename]);
+				FileTools.copyAssetsDir(targetAsests, toAssets);
+			}
 			// electron目标
 			if (Context.defined("electron")) {
 				new Electron().build(project);
