@@ -24,7 +24,7 @@ class Electron extends BasePlatform {
 		FileTools.saveTemplateFile(Path.join([project.outputDir, "makefile"]), File.getContent(project.getHxvue3DirPath("templates/electron/makefile")),
 			project);
 		// 清空缓存文件
-		FileTools.removeDir(project.getOutputTempDir());
+		// FileTools.removeDir(project.getOutputTempDir());
 		#end
 	}
 }

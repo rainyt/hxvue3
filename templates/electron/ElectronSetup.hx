@@ -22,6 +22,11 @@ class ElectronSetup {
 			var window = new BrowserWindow(config);
 			window.loadFile("./index.html");
 			ElectronFileSystem.init(window);
+			// 扩展实现
+			#if templates
+			::foreach require::untyped require("::url::");
+			::end::
+			#end
 		});
 	}
 }

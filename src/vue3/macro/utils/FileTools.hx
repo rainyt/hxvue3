@@ -83,6 +83,7 @@ class FileTools {
 	 */
 	public static function saveTemplateFile(savePath:String, text:String, ?defines:Project):Void {
 		var t = new Template(text);
+		trace(defines.require);
 		var content = t.execute(defines);
 		saveContent(savePath, content);
 	}

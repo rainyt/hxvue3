@@ -34,6 +34,10 @@ class VueBuilder {
 		rename:String
 	}> = [];
 
+	@:persistent public static var requires:Array<{
+		url:String
+	}> = [];
+
 	macro public static function build():Array<Field> {
 		var list = Context.getBuildFields();
 		var classType = Context.getLocalClass();
@@ -42,6 +46,10 @@ class VueBuilder {
 		var styleContext:String = null;
 		for (item in classFunc) {
 			switch (item.name) {
+				case ":require":
+					requires.push({
+						url: ExprTools.getValue(item.params[0])
+					});
 				case ":assets", ":a":
 					// 资源拷贝
 					var copyFile:String = ExprTools.getValue(item.params[0]);

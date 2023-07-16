@@ -38,6 +38,11 @@ class Project {
 	 */
 	public var compilerCwd:String = "";
 
+	/**
+	 * electron引用模块
+	 */
+	public var require:Array<{url:String}> = [];
+
 	public function new() {
 		#if macro
 		compilerCwd = Sys.getCwd();
@@ -54,6 +59,9 @@ class Project {
 		path = StringTools.replace(path, "\r", "");
 		p.close();
 		hxvue3Dir = path;
+		for (item in VueBuilder.requires) {
+			require.push(item);
+		}
 		#end
 	}
 
