@@ -1,5 +1,6 @@
 package vue3;
 
+import haxe.macro.Type.Ref;
 import js.Syntax;
 
 using Reflect;
@@ -45,6 +46,7 @@ class VueComponent {
 				this.methods.setField(key, this.getProperty(key));
 			}
 		}
+
 		untyped this.mounted = this.methods.onMounted;
 		untyped this.created = this.methods.onCreated;
 		untyped this.beforeCreate = this.methods.onBeforeCreate;
@@ -61,7 +63,18 @@ class VueComponent {
 	 * @return Dynamic
 	 */
 	private function data():Dynamic {
-		return {};
+		var data = {};
+		for (key in Reflect.fields(this)) {
+			switch key {
+				case "methodsKeys", "template", "components", "methods":
+				default:
+					var d = Reflect.getProperty(this, key);
+					if (d != null && !Reflect.isFunction(d)) {
+						Reflect.setProperty(data, key, d);
+					}
+			}
+		};
+		return data;
 	}
 
 	/**
