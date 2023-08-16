@@ -18,6 +18,9 @@ class FileSystem {
 		IpcRenderer.on("open-file", (event, data) -> {
 			callEvent("open-file", data);
 		});
+		IpcRenderer.on("save-file", (event, data) -> {
+			callEvent("save-file", data);
+		});
 	}
 
 	private static function callEvent(event:String, data:Dynamic):Void {
@@ -30,13 +33,28 @@ class FileSystem {
 
 	/**
 	 * 选择文件
-	 * @param title 标题说明
-	 * @param defaultPath 打开的默认路径
+	 * @param option 可选参数
+	 * @param cb 回调
 	 */
 	public static function openFile(?option:FileSystemOpenOption, ?cb:FileEvent->Void):Void {
 		events.set("open-file", cb);
 		IpcRenderer.send("open-file", option);
 	}
+
+	/**
+	 * 保存文件
+	 * @param option 可选参数
+	 * @param cb 回调
+	 */
+	public static function saveFile(?option:FileSystemOpenOption, ?cb:SaveFileEvent->Void):Void {
+		events.set("save-file", cb);
+		IpcRenderer.send("save-file", option);
+	}
+}
+
+typedef SaveFileEvent = {
+	canceled:Bool,
+	filePath:String
 }
 
 typedef FileEvent = {

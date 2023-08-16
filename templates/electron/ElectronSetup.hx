@@ -44,5 +44,10 @@ class ElectronFileSystem {
 				untyped window.send("open-file", data);
 			});
 		});
+		IpcMain.on("save-file", (event, data) -> {
+			Dialog.showSaveDialog(window, data).then((data) -> {
+				untyped window.send("save-file", data);
+			});
+		});
 	}
 }

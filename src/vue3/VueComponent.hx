@@ -76,6 +76,15 @@ class VueComponent {
 	}
 
 	/**
+	 * 注册组件
+	 * @param name 
+	 * @param type 
+	 */
+	public function componentByName(name:String, value:Dynamic):Void {
+		this.components.setProperty(name, value);
+	}
+
+	/**
 	 * 发送事件
 	 * @param ...args 
 	 */
