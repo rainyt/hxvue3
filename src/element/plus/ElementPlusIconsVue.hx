@@ -12,4 +12,5 @@ package element.plus;
 	public static var Operation:Dynamic;
 	public static var Plus:Dynamic;
 	public static var Minus:Dynamic;
+	public static var Edit:Dynamic;
 }
