@@ -13,4 +13,5 @@ package element.plus;
 	public static var Plus:Dynamic;
 	public static var Minus:Dynamic;
 	public static var Edit:Dynamic;
+	public static var Lock:Dynamic;
 }

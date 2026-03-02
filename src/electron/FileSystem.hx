@@ -21,6 +21,9 @@ class FileSystem {
 		IpcRenderer.on("save-file", (event, data) -> {
 			callEvent("save-file", data);
 		});
+		IpcRenderer.on("open-dir", (event, data) -> {
+			callEvent("open-dir", data);
+		});
 	}
 
 	private static function callEvent(event:String, data:Dynamic):Void {
@@ -29,6 +32,16 @@ class FileSystem {
 			if (cb != null)
 				cb(data);
 		}
+	}
+
+	/**
+	 * 打开目录
+	 * @param option 
+	 * @param cb 
+	 */
+	public static function openDir(?option:FileSystemOpenOption, ?cb:FileEvent->Void):Void {
+		events.set("open-dir", cb);
+		IpcRenderer.send("open-dir", option);
 	}
 
 	/**

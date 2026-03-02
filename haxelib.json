@@ -7,7 +7,7 @@
     "elementui"
   ],
   "description": "Vue3 is written in Haxe language with built-in support for ElementPlus components.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "releasenote": "",
   "contributors": [
     "rainy"
